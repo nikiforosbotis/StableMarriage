@@ -42,7 +42,7 @@ The program can be run with the following ways:
 
 Example files for input-output:
 
-* [example_1.json](example_1.json), optimized solution for men [example_1_m.json](example_1_m.json), optimized solution for women  [example_1_w.json](example_1_w.json).
+* [example_1.json](json/example_1.json), optimized solution for men [example_1_m.json](json/example_1_m.json), optimized solution for women  [example_1_w.json](example_1_w.json).
 * [example_2.json](example_2.json), optimized solution for men  [example_2_m.json](example_2_m.json), optimized solution for women  [example_2_w.json](example_2_w.json).
 * [example_3.json](example_3.json), optimized solution for men [example_3_m.json](example_3_m.json), optimized solution for women  [example_3_w.json](example_3_w.json).
 
