@@ -1,0 +1,47 @@
+{
+  "men_rankings": {
+    "abe": ["ada", "eve", "cat", "ivy", "jan", "dee", "fay", "bea",
+            "hay", "gil"],
+    "bob": ["cat", "hay", "ada", "dee", "eve", "fay", "bea", "jan",
+            "ivy", "gil"],
+    "cal": ["hay", "eve", "ada", "dee", "bea", "fay", "ivy", "gil",
+            "cat", "jan"],
+    "dan": ["ivy", "fay", "dee", "gil", "hay", "eve", "jan", "bea",
+            "cat", "ada"],
+    "edd": ["jan", "dee", "bea", "cat", "fay", "eve", "ada", "ivy",
+            "hay", "gil"],
+    "fed": ["bea", "ada", "dee", "gil", "eve", "ivy", "cat", "jan",
+            "hay", "fay"],
+    "gav": ["gil", "eve", "ivy", "bea", "cat", "ada", "dee", "hay",
+            "jan", "fay"],
+    "hal": ["ada", "eve", "hay", "fay", "ivy", "cat", "jan", "bea",
+            "gil", "dee"],
+    "ian": ["hay", "cat", "dee", "gil", "bea", "ada", "fay", "ivy",
+            "jan", "eve"],
+    "jon": ["ada", "fay", "jan", "gil", "eve", "bea", "dee", "cat",
+            "ivy", "hay"]
+  },
+
+  "women_rankings": {
+    "ada": ["bob", "fed", "jon", "gav", "ian", "abe", "dan", "edd",
+            "cal", "hal"],
+    "bea":  ["bob", "abe", "cal", "fed", "gav", "dan", "ian", "edd",
+             "jon", "hal"],
+    "cat": ["fed", "bob", "edd", "gav", "hal", "cal", "ian", "abe",
+             "dan", "jon"],
+    "dee":  ["fed", "jon", "cal", "abe", "ian", "hal", "gav", "dan",
+             "bob", "edd"],
+    "eve":  ["jon", "hal", "fed", "dan", "abe", "gav", "cal", "edd",
+             "ian", "bob"],
+    "fay":  ["bob", "abe", "edd", "ian", "jon", "dan", "fed", "gav",
+             "cal", "hal"],
+    "gil":  ["jon", "gav", "hal", "fed", "bob", "abe", "cal", "edd",
+             "dan", "ian"],
+    "hay": ["gav", "jon", "bob", "abe", "ian", "dan", "hal", "edd",
+            "cal", "fed"],
+    "ivy":  ["ian", "cal", "hal", "gav", "fed", "bob", "abe", "edd",
+             "jon", "dan"],
+    "jan":  ["edd", "hal", "gav", "abe", "bob", "jon", "cal", "ian",
+             "fed", "dan"]
+  }
+}

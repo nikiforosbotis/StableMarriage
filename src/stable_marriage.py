@@ -1,51 +1,63 @@
+#A program that implements the Gale-Shapley algorithm for Stable Marriages.
+#Author: Nikiforos Botis
+#Date: May 2015
+
 import json
 import sys
 
-f = open(sys.argv[2], 'r')   #στις 3 αυτές γραμμές ανοίγει και διαβάζεται το αρχείο json που περιέχει τις προτιμήσεις ανδρών και γυναικών.
-j = json.load(f)  
+#Opens and reads the json file which includes the preferences of men and women
+f = open(sys.argv[2], 'r')
+j = json.load(f)
 f.close()
 
-def StableMatching(a, b):   #η συγκεκριμένη συνάρτηση επιστρέφει το αποτέλεσμα του αλγορίθμου. Η παράμετρος a αναφέρεται στις προτιμήσεις του φύλου του οποίου επιθυμούμε να βρούμε τη βέλτιστη λύση και η b του άλλου φύλου.
+#This function returns the result of the algorithm. Parameter 'a' refers to the preferences of the gender
+#that we want to find the optimized solution for, while the parameter 'b' refers to the preferences of the other gender.
+def StableMatching(a, b):
     "this function returns a stable matching"
-    dict_a = a.keys()   
-    names1 = list(dict_a)   #η λίστα αυτή περιέχει τα ονόματα όλων των ανδρών (αν επιθυμούμε τη βέλτιστη λύση ως προς τους άνδρες) ή των γυναικών (αν επιθυμούμε τη βέλτιστη λύση ως προς τις γυναίκες).
+    dict_a = a.keys()
+    #This list contains the names of all the men (if we are want to optimize for them) or the women (respectively).
+    names1 = list(dict_a)
     dict_b = b.keys()
-    names2 = list(dict_b)   #η λίστα αυτή περιέχει τα ονόματα όλων των γυναικών (αν επιθυμούμε τη βέλτιστη λύση ως προς τους άνδρες) ή των ανδρών (αν επιθυμούμε τη βέλτιστη λύση ως προς τους άνδρες).
+    #This list contains the names of all the women (if we want to optimize for the men) or the men (respectively).
+    names2 = list(dict_b)
     i = 0
-    engaged = []   #στη λίστα αυτή αποθηκεύονται τα ζευγάρια που σχηματίζονται κατά τη διάρκεια εκτέλεσης του αλγορίθμου.
-    times = {}   #το λεξικό αυτό περιέχει τα ονόματα του φύλου του οποίου αναζητούμε τη βέλτιστη λύση και για κάθε άνδρα ή γυναίκα αναφέρει σε πόσες/πόσους έχει κάνει πρόταση γάμου.
+    engaged = []
+    #This dictionary contains the names of the gender for which we attempt to find the optimized solution.
+    times = {}
     t = 0
-    position_nyn = 0   #η μεταβλητή αυτή βρίσκει την θέση του/της νυν συζύγου στις προτιμήσεις της/του.
-    position_pithanou = 0   #η μεταβλητή αυτή βρίσκει τη θέση του/της εξεταζόμενου/ης στις προτιμήσεις της/του.
-    
+    position_existing = 0
+    position_potential = 0
     counter = 0
-    a_p = {}   #προέρχεται απ' το a_personalStatement και παίρνει τιμές 'free' ή 'not free'.
-    while(counter < len(names1)):   
+    #Can have the values 'free' or 'not free'.
+    a_p = {}
+    while(counter < len(names1)):
         a_p.update({names1[counter]: 'free'})
         counter = counter + 1
 
     counter = 0
-    b_p = {}   #προέρχεται απ' το b_personalStatement και παίρνει τιμές 'free' ή 'not free'.
+    #Can have the values 'free' or 'not free'.
+    b_p = {}
     while(counter < len(names2)):
         b_p.update({names2[counter]: 'free'})
         counter = counter + 1
 
-    
     counter = 0
-    while(counter < len(names1)):   #αρχικοποιείται το λεξικό times 
+    #Initialization of times dictionary.
+    while(counter < len(names1)):
         times.update({names1[counter]: 0})
         counter = counter + 1
-    
-    while((i != -1) and (a_p[names1[i]] == 'free') and (times[names1[i]] < len(names2))):   #ο βασικός βρόγχος του προγράμματος με τις συνθήκες που χρειάζονται
-        #(η τιμή -1 που δεν πρέπει να πάρει η μεταβλητή i δεν αντιπροσωπεύει κάτι συγκεκριμένο. Επιλέχθηκε τυχαία και αναφέρεται στο ότι όταν όλοι/ες οι άνδρες/γυναίκες είναι δεσμευμένοι/ες, τότε να τερματίζεται ο βρόγχος).  
-        w = a[names1[i]][times[names1[i]]]   #η/o γυναίκα/άνδρας που είναι επόμενη/ος στη σειρά των προτάσεων.
-        if(b_p[w] == 'free'):   #αν η/ο γυναίκα/άνδρας στην/στον οποία προτείνει γάμο ο/η εξεταζόμενος/η είναι ελεύθερη/ος, τότε πραγματοποιούνται τα παρακάτω βήματα.
+
+    #The value -1 has the meaning that when all men or women are paired, the loop stops;
+    while((i != -1) and (a_p[names1[i]] == 'free') and (times[names1[i]] < len(names2))):
+        #The man/woman who is next in the ranking of the proposals.
+        w = a[names1[i]][times[names1[i]]]
+        if(b_p[w] == 'free'):
             a_p[names1[i]] = 'not free'
             b_p[w] = 'not free'
             t = (names1[i], w)
             engaged.append(t)
             times[names1[i]] = times[names1[i]] + 1
-        else:   #αν δεν είναι, τότε εξετάζεται η περίπτωση που ο/η εξεταζόμενος/η άνδρας/γυναίκα είναι προτιμότερος/η για την/τον γυναίκα/άνδρα σε σχέση με το/τη νυν σύζυγό της/του.
+        else:
             q = 0
             while(q < (len(engaged))):
                   if(w in engaged[q]):
@@ -53,16 +65,16 @@ def StableMatching(a, b):   #η συγκεκριμένη συνάρτηση επ
                       l = 0
                       while(l < len(names1)):
                           if(names1[i] == b[w][l]):
-                              position_pithanou = l
+                              position_potential = l
                               l = len(names1)
                           l = l + 1
                       l = 0
                       while(l < len(names1)):
                           if(t1[0] == b[w][l]):
-                              position_nyn = l
+                              position_existing = l
                               l = len(names1)
                           l = l + 1
-                      if(position_pithanou < position_nyn):   #αν ο/η εξεταζόμενος/η άνδρας/γυναίκα προηγείται στις προτιμήσεις απ' τον/την υπάρχον/υπάρχουσα, τότε ο/η υπάρχον/υπάρχουσα γίνεται πρώην (άρα και ελεύθερος/η) και η/ο γυναίκα/άνδρας ζευγαρώνει με τον/την εξεταζόμενο/η άνδρα/γυναίκα.
+                      if(position_potential < position_existing):
                           t = (names1[i], w)
                           engaged.append(t)
                           del(engaged[q])
@@ -73,10 +85,11 @@ def StableMatching(a, b):   #η συγκεκριμένη συνάρτηση επ
 
             times[names1[i]] = times[names1[i]] + 1
         i = i + 1
-
-        if(i == len(names1)):   #αν η μεταβλητή i περάσει απ' όλους τους/τις άνδρες/γυναίκες, τότε ξαναξεκινάει απ' την αρχή ώστε να ελεγχθούν αυτοί/ες που έχουν μείνει ελεύθεροι/ες.
+        #If the variable i has passed from all the men/women then it starts from the beginning
+        #in order to check the ones who remain single.
+        if(i == len(names1)):
             i = 0
-        if(a_p[names1[i]] == 'not free'):   #αν ο/η εξεταζόμενος/η άνδρας/γυναίκα δεν είναι ελεύθερος/η, τότε βρίσκουμε τον/την επόμενο/η ελεύθερο/η και ξαναξεκινάμε την επανάληψη.
+        if(a_p[names1[i]] == 'not free'):
             k = 0
             z = False
             while((k < len(names1)) and (z == False)):
@@ -84,23 +97,21 @@ def StableMatching(a, b):   #η συγκεκριμένη συνάρτηση επ
                     i = k
                     z = True
                 k = k + 1
-            if((k == len(names1)) and (z == False)):   #αν η μεταβλητή i ξαναπεράσει απ' όλους/ες τους/τις άνδρες/γυναίκες και δεν βρεί κάποιον/α ελεύθερο/η, τότε παίρνει την τιμή -1 και η επανάληψη τελειώνει.
+            if((k == len(names1)) and (z == False)):
                 i = -1
-
-    engaged_dict = dict(engaged)   #μετατρέπουμε τη λίστα engaged σε λεξικό ώστε να μπορεί να εμφανιστεί στη συνέχεια ως JSON.
+    #The list is transformed into a dictionary in order to be presented as a .JSON file.
+    engaged_dict = dict(engaged)
     return engaged_dict
-            
 
-if(sys.argv[1] == '-m'):   #αν ο χρήστης επιλέξει τη βέλτιστη λύση ως προς τους άνδρες τότε καλούμε τη συνάρτηση με την ακόλουθη σειρά ορισμάτων.
+#The following refer to the arguments with which the program will be called from the command line.
+if(sys.argv[1] == '-m'):
     matched = StableMatching(j['men_rankings'], j['women_rankings'])
-elif(sys.argv[1] == '-w'):   #αν ο χρήστης επιλέξει τη βέλτιστη λύση ως προς τις γυναίκες τότε καλούμε τη συνάρτηση με την ακόλουθη σειρά ορισμάτων.
+elif(sys.argv[1] == '-w'):
     matched = StableMatching(j['women_rankings'], j['men_rankings'])
-    
+
 print(json.dumps(matched, indent=4, sort_keys=True))
 
-if(len(sys.argv) > 3):   #αν ο χρήστης επιλέξει το αποτέλεσμα αν αποθηκευθεί σε αρχείο, τότε το πρόγραμμα εισάγεται σε αυτό τον βρόγχο.
+if(len(sys.argv) > 3):
     if(sys.argv[3] == '-o'):
         with open(sys.argv[4], 'w') as fp:
-            json.dump(matched, fp, indent=4, sort_keys=True)  
-    
-    
+            json.dump(matched, fp, indent=4, sort_keys=True)

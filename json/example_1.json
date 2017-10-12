@@ -1,0 +1,13 @@
+{
+  "men_rankings": {
+    "abe": ["cat", "bea", "ada"],
+    "bob": ["ada", "cat", "bea"],
+    "cal": ["ada", "bea", "cat"]
+  },
+
+  "women_rankings": {
+    "ada": ["abe", "cal", "bob"],
+    "bea": ["bob", "abe", "cal"],
+    "cat": ["cal", "abe", "bob"]
+  }
+}
