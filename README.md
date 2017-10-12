@@ -35,7 +35,7 @@ If we start tackling the problem from men's part, the solution that is produced 
 
 The program can be run with the following ways:
 
-* `python3 stable_marriage.py -m <input_filename>`, which outputs the solution that is optimized for the men. The script produces a JSON representation of the solution:`{ "man": "woman", "another_man": "another_woman", ...}`.
+* `python3 stable_marriage.py -m <input_filename>`, which outputs the solution that is optimized for the men. The script produces a JSON representation of the solution: `{ "man": "woman", "another_man": "another_woman", ...}`.
 * `python3 stable_marriage.py -m <input_filename> -o <output_filename>`, which also outputs the solution that is optimized for the men. The script is saved on a file named `output_filename`.
 * `python3 stable_marriage.py -w <input_filename>`, which outputs the solution that is optimized for the women. The script produces a JSON representation of the solution: `{ "woman": "man", "another_woman": "another_man", ...}`.
 * `python3 stable_marriage.py -w <input_filename> -o <output_filename>`, which also outputs the solution that is optimized for the women. The script is saved on a file named `output_filename`.
