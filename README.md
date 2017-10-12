@@ -33,7 +33,7 @@ If we start tackling the problem from men's part, the solution that is produced 
 {"ada": "abe", "bea": "bob", "cat": "cal"}
 ```
 
-The program can be called with the following ways:
+The program can be run with the following ways:
 
 * `python3 stable_marriage.py -m <input_filename>`, which outputs the solution that is optimized for the men. The script produces a JSON representation of the solution:`{ "man": "woman", "another_man": "another_woman", ...}`.
 * `python3 stable_marriage.py -m <input_filename> -o <output_filename>`, which also outputs the solution that is optimized for the men. The script is saved on a file named `output_filename`.
